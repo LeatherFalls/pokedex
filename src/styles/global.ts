@@ -12,4 +12,5 @@ export const GlobalStyle = createGlobalStyle`
     color: ${(props) => props.theme.colors.text};
     font-family: IBM Plex Sans, sans-serif;
     font-size: 14px;
+  }
 `;
