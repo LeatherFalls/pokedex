@@ -9,7 +9,6 @@ export const HomeContainer = styled.main`
   width: 100%;
 
   .pokemon_card {
-    background: ${(props) => props.theme.colors.primary};
     border-radius: 0.5rem;
     display: flex;
     flex-direction: column;
