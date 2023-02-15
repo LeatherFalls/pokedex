@@ -3,8 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { getPokemon } from "../../services/api";
 import { getAverageRGB } from "../../utils/getAverageColor";
 import { BaseStatsContainer, DetailsImageContainer, DetailsInfoContainer, PokemonSW } from "./styles";
-import SkillBar from 'react-skillbars';
-import { keyframes } from "styled-components";
+import { types } from "../../utils/pokemonTypes";
 
 const PokemonDetails: React.FC = () => {
   const [pokemonPathName, setPokemonPathName] = useState<string>('');
@@ -19,36 +18,11 @@ const PokemonDetails: React.FC = () => {
     setPokemonDetails(pokemon);
   }
 
-  const renderSkills =  () => {
-    const skills = [
-      {type: "HP", level: pokemonDetails.stats[0].base_stat},
-      {type: "ATK", level: pokemonDetails.stats[1].base_stat},
-      {type: "DEF", level: pokemonDetails.stats[2].base_stat},
-      {type: "SAT", level: pokemonDetails.stats[3].base_stat},
-      {type: "SDF", level: pokemonDetails.stats[4].base_stat},
-      {type: "SPD", level: pokemonDetails.stats[5].base_stat},
-    ]
-
-    return (
-      <SkillBar
-        skills={skills}
-        height={"1rem"}
-        symbol={""}
-      />
-    )
+  const setCardBackgroundColor = () => {
+    const pokemonType  = pokemonDetails.types.map((type: any) => type.type.name);
+    const pokemonColor = types.find((item: any) => item[pokemonType[0]])?.[pokemonType[0]];
+    return pokemonColor;
   }
-
-  const setAverageColor = () => {
-    const img = document.querySelector('.test');
-    console.log(img);
-
-    if (img) {
-      img.onload = () => {
-        const { R, G, B } = getAverageRGB(img, 4);
-        img.parentNode.style.background = `rgb(${R}, ${G}, ${B})`
-      }
-    }
-  };
 
   useEffect(() => {
     setPokemonPathName(pokemonName);
@@ -58,16 +32,16 @@ const PokemonDetails: React.FC = () => {
     getPokemonDetails();
   }, []);
 
-  useEffect(() => {
-    setAverageColor();
-  });
-
   return (
     <div>
       {
         'sprites' in pokemonDetails ? (
           <div>
-            <DetailsImageContainer>
+            <DetailsImageContainer
+              style={{
+                backgroundColor: setCardBackgroundColor(),
+              }}
+            >
               <div>
                 <Link to='/'>Pokedex</Link>
                 <p>#{pokemonDetails.id}</p>
@@ -83,7 +57,14 @@ const PokemonDetails: React.FC = () => {
               <div className="pokemon_types">
                 {
                   pokemonDetails.types.map((type: any) => (
-                    <p key={type.type.name}>{type.type.name}</p>
+                    <p
+                      key={type.type.name}
+                      style={{
+                        backgroundColor: types.find((item: any) => item[type.type.name])?.[type.type.name],
+                      }}
+                    >
+                      {type.type.name}
+                    </p>
                   ))
                 }
               </div>
@@ -109,7 +90,6 @@ const PokemonDetails: React.FC = () => {
                             className="skill"
                             style={{
                               width: `${stat.base_stat / 3}%`
-                              
                             }}
                           ></span>
                         </span>

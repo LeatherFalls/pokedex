@@ -68,7 +68,6 @@ export const BaseStatsContainer = styled.div`
   flex-direction: column;
   margin: 0;
   width: 100%;
-  text-transform: uppercase;
 
   h1 {
     margin: 0;

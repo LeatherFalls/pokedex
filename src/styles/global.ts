@@ -13,4 +13,17 @@ export const GlobalStyle = createGlobalStyle`
     font-family: IBM Plex Sans, sans-serif;
     font-size: 14px;
   }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: ${(props) => props.theme.colors.primary};
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: ${(props) => props.theme.colors.primary};
+  }
 `;
