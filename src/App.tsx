@@ -7,6 +7,7 @@ import { ThemeContextProvider } from './context/ThemeContextProvider';
 import { ThemeGlobalContext } from './context/ThemeGlobalContext';
 import light from './styles/themes/light';
 import dark from './styles/themes/dark';
+import PokemonDetails from './pages/details/PokemonDetails';
 
 function App() {
   const { theme } = React.useContext(ThemeGlobalContext);
@@ -24,7 +25,7 @@ function App() {
           <GlobalStyle />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/:id" element={<h1>Pokemon</h1>} />
+            <Route path="/pokemon/:name" element={<PokemonDetails />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>

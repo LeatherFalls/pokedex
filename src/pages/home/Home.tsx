@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import Header from "../../components/header/Header";
-import { getPokemons, getPokemonImage } from "../../services/api";
-import { HomeContainer } from "./styles";
+import { getPokemons, getPokemonImage, getPokemon } from "../../services/api";
+import { ButtonPagination, HomeContainer } from "./styles";
 import { getAverageRGB } from "../../utils/getAverageColor";
+import { useNavigate } from "react-router-dom";
 
 const Home: React.FC = () => {
   const [pagination, setPagination] = useState(0);
   const [pokemons, setPokemons] = useState<any>([]);
   const [pokemonsImg, setPokemonsImages] = useState<any>([]);
+
+  const navigate = useNavigate();
 
   const renderPokemons = async () => {
     const response = await getPokemons(20, pagination);
@@ -34,12 +37,16 @@ const Home: React.FC = () => {
 
     imgArray.forEach((img: any) => {
       img.onload = () => {
-        const { R, G, B } = getAverageRGB(img, 1);
+        const { R, G, B } = getAverageRGB(img, 4);
         img.parentNode.style.background = `rgb(${R}, ${G}, ${B})`
       }
     });
-    console.log(img);
   };
+
+  const navigateToPokemon = async (name: string) => {
+    await getPokemon(name);
+    navigate(`/pokemon/${name}`);
+  }
 
   useEffect(() => {
     renderPokemons();
@@ -56,7 +63,11 @@ const Home: React.FC = () => {
         {
           pokemons.map((pokemon: any) => {
             return (
-              <div key={pokemon.name} className="pokemon_card">
+              <div
+                key={pokemon.name}
+                className="pokemon_card"
+                onClick={() => navigateToPokemon(pokemon.name)}
+              >
                 <img src={pokemonsImg[pokemons.indexOf(pokemon)]} alt={pokemon.name} className="pokemon_img" />
                 <h1>{pokemon.name}</h1>
               </div>
@@ -64,8 +75,13 @@ const Home: React.FC = () => {
           })
         }
         <div>
-          <button onClick={() => setPagination(pagination - 20)}>-</button>
-          <button onClick={() => setPagination(pagination + 20)}>+</button>
+          <ButtonPagination
+            onClick={() => setPagination(pagination - 20)}
+            disabled={pagination === 0 ? true : false}
+          >
+            -
+          </ButtonPagination>
+          <ButtonPagination onClick={() => setPagination(pagination + 20)}>+</ButtonPagination>
         </div>
       </HomeContainer>
     </div>
