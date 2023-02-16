@@ -34,6 +34,7 @@ When a user clicks on a Pokémon from the list or search results, they will be t
 
 ## Credits
 This application was built using the PokeAPI to retrieve information about different Pokémon.
-## Stack utilizada
+
+## Stack
 
 React, Typescrypt, CSS, Styled Components
