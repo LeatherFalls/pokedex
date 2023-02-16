@@ -15,6 +15,8 @@ export const ThemeContextProvider = ({ children }: IThemeProps) => {
   const toggleTheme = () => {
     theme.title === "light" ? setTheme(dark) : setTheme(light);
     console.log(theme);
+
+    return theme;
   };
 
   const handleSearchPokemon = async (name: string) => {

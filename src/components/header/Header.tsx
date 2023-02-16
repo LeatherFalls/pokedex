@@ -23,7 +23,7 @@ const Header: React.FC = () => {
     const pokemon = await handleSearchPokemon(searchPokemon);
     console.log(pokemon)
 
-    if (searchPokemon === '' || typeof pokemon === 'string') {
+    if (searchPokemon === '' || typeof pokemon === 'undefined') {
       setSearchPokemon('');
       notify();
     } else {
