@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { getPokemon } from "../../services/api";
-import { getAverageRGB } from "../../utils/getAverageColor";
 import { BaseStatsContainer, DetailsImageContainer, DetailsInfoContainer, PokemonSW } from "./styles";
 import { types } from "../../utils/pokemonTypes";
+import { ThemeGlobalContext } from "../../context/ThemeGlobalContext";
 
 const PokemonDetails: React.FC = () => {
-  const [pokemonPathName, setPokemonPathName] = useState<string>('');
+  const { setSearchPokemon } = useContext(ThemeGlobalContext)
+
   const [pokemonDetails, setPokemonDetails] = useState<any>({});
 
   const path = useLocation();
@@ -25,10 +26,6 @@ const PokemonDetails: React.FC = () => {
   }
 
   useEffect(() => {
-    setPokemonPathName(pokemonName);
-  }, [path]);
-
-  useEffect(() => {
     getPokemonDetails();
   }, []);
 
@@ -43,7 +40,12 @@ const PokemonDetails: React.FC = () => {
               }}
             >
               <div>
-                <Link to='/'>Pokedex</Link>
+                <Link
+                  to='/'
+                  onClick={() => setSearchPokemon("")}
+                >
+                  Pokedex
+                </Link>
                 <p>#{pokemonDetails.id}</p>
               </div>
               <img
@@ -53,7 +55,7 @@ const PokemonDetails: React.FC = () => {
               />
             </DetailsImageContainer>
             <DetailsInfoContainer>
-              <h1>{pokemonDetails.name}</h1>
+              <h1>{pokemonDetails.name.toUpperCase()}</h1>
               <div className="pokemon_types">
                 {
                   pokemonDetails.types.map((type: any) => (
@@ -84,10 +86,10 @@ const PokemonDetails: React.FC = () => {
                   {
                     pokemonDetails.stats.map((stat: any) => (
                       <li key={stat.stat.name}>
-                        <h3>{stat.stat.name}</h3>
+                        <h3>{stat.stat.name.toUpperCase()}</h3>
                         <span className="bar">
                           <span
-                            className="skill"
+                            className={stat.stat.name}
                             style={{
                               width: `${stat.base_stat / 3}%`
                             }}

@@ -9,4 +9,10 @@ type ThemeGlobalContextType = {
   toggleTheme: () => void;
 };
 
-export const ThemeGlobalContext = createContext({ theme: light, toggleTheme: () => {} });
+export const ThemeGlobalContext = createContext({
+  theme: light,
+  toggleTheme: () => {},
+  searchPokemon: "",
+  setSearchPokemon: (pokemon: any) => {},
+  handleSearchPokemon: (pokemon: any) => {},
+});

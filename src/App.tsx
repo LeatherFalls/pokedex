@@ -8,20 +8,18 @@ import { ThemeGlobalContext } from './context/ThemeGlobalContext';
 import light from './styles/themes/light';
 import dark from './styles/themes/dark';
 import PokemonDetails from './pages/details/PokemonDetails';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   const { theme } = React.useContext(ThemeGlobalContext);
 
   const isDarkTheme = theme.title === 'dark';
 
-  useEffect(() => {
-    console.log(theme);
-  }, [theme]);
-
   return (
     <ThemeContextProvider>
       <ThemeProvider theme={ isDarkTheme ? dark : light }>
         <BrowserRouter>
+          <ToastContainer />
           <GlobalStyle />
           <Routes>
             <Route path="/" element={<Home />} />

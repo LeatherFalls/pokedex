@@ -99,7 +99,28 @@ export const BaseStatsContainer = styled.div`
       height: 100%;
     }
 
-    .skill {
+    .hp {
+      background: #388E39;
+      animation: skillAnimation 3s ease-in-out;
+    }
+    .attack {
+      background: #D32F2F;
+      animation: skillAnimation 3s ease-in-out;
+    }
+    .defense {
+      background: #1976D2;
+      animation: skillAnimation 3s ease-in-out;
+    }
+    .special-attack {
+      background: #FBC02D;
+      animation: skillAnimation 3s ease-in-out;
+    }
+    .special-defense {
+      background: #7B1FA2;
+      animation: skillAnimation 3s ease-in-out;
+    }
+    .speed {
+      background: #FFA000;
       animation: skillAnimation 3s ease-in-out;
     }
 

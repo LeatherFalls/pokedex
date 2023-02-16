@@ -27,7 +27,7 @@ export const HomeContainer = styled.main`
 
     h1 {
       color: ${(props) => props.theme.colors.text};
-      font-size: 16px;
+      font-size: 14px;
       margin-top: 0.5rem;
       text-align: center;
     }

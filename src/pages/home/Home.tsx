@@ -69,7 +69,7 @@ const Home: React.FC = () => {
                 onClick={() => navigateToPokemon(pokemon.name)}
               >
                 <img src={pokemonsImg[pokemons.indexOf(pokemon)]} alt={pokemon.name} className="pokemon_img" />
-                <h1>{pokemon.name}</h1>
+                <h1>{pokemon.name.toUpperCase()}</h1>
               </div>
             )
           })
